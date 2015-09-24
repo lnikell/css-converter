@@ -12,7 +12,7 @@ class CssToSass(sublime_plugin.TextCommand):
   def convert(self, text):
       if (";" in text):
         self.clean()
-        self.view.run_command('paste')
+        self.view.run_command('paste_and_indent')
       else:
         self.view.run_command('paste')
 
