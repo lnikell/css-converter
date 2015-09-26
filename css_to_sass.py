@@ -27,10 +27,9 @@ class CssToSass(sublime_plugin.TextCommand):
         self.view.run_command('paste')
 
   def process(self):
+    print("=========process===========")
     text = sublime.get_clipboard()
-    # text = re.sub("(;|{|})", "", text)
-    # sublime.set_clipboard(text)
-    
+        
     tree = {'children': {}}
     # Remove comments
     text = re.sub("\/\*[\s\S]*?\*\/", "", text)
@@ -41,13 +40,16 @@ class CssToSass(sublime_plugin.TextCommand):
 
       selector = selector.strip()
       if re.search(",", selector):
-        self.addRule(path, selector)
+        path = self.addRule(path, selector)
+      else:
+        selector = re.sub("\s*([>\+~])\s*", r' %\1' , selector)   
       
  
   def addRule(self, path, selector):
     print(path)
-    path['children'][selector] = path['children'][selector] | { children: 1, declarations: [] }
+    print(selector)
+    if selector in path['children']:
+      path['children'][selector] = path['children'][selector] 
+    else:
+      path['children'][selector] = { 'children': 1, 'declarations': [] }
     print(path)
-
-
-      
