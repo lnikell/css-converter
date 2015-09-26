@@ -1,1 +1,2 @@
-# css-to-sass-converter
+# CSS to SASS converter for Sublime Text 3
+Comming soon...
