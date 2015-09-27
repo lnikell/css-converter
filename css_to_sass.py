@@ -37,12 +37,20 @@ class CssToSass(sublime_plugin.TextCommand):
     for (selector, declaration) in re.findall("([^{]+)\{([^}]+)\}", text):
       selectors = []
       path = tree
+      print("in group")
 
       selector = selector.strip()
       if re.search(",", selector):
+        print("in search if")
         path = self.addRule(path, selector)
       else:
+        print("in search else")
         selector = re.sub("\s*([>\+~])\s*", r' %\1' , selector)   
+        selector = re.sub("(\w)([:\.])", r' \1 &\2' , selector)  
+        selectors = re.split("[\s]+",selector)
+        print(selectors)
+
+
       
  
   def addRule(self, path, selector):
