@@ -1,0 +1,3 @@
+Thank you for install plugin!
+
+Please write issue if you have any ideas for improvement plugin.
