@@ -3,7 +3,7 @@ import re
 
 class CssToSass(sublime_plugin.TextCommand):
   options = {
-    'indent': 2,
+    'indent': '\t',
     'openingBracket': '',
     'closingBracket': '',
     'semicolon': ':',
@@ -33,11 +33,11 @@ class CssToSass(sublime_plugin.TextCommand):
     tree = {'children': {}}
     # Remove comments
     text = re.sub("\/\*[\s\S]*?\*\/", "", text)
+    results = re.findall("([^{]+)\{([^}]+)\}", text)
     # Process each css block
-    for (selector, declaration) in re.findall("([^{]+)\{([^}]+)\}", text):
+    for (selector, declaration) in results:
       selectors = []
       path = tree
-
       selector = selector.strip()
       if re.search(",", selector):
         path = self.addRule(path, selector)
@@ -58,6 +58,7 @@ class CssToSass(sublime_plugin.TextCommand):
         }
 
         path['declarations'].append(obj)
+    if len(results) == 0: return self.clean(text) 
     return self.generateOutput(tree)
 
       
@@ -82,16 +83,17 @@ class CssToSass(sublime_plugin.TextCommand):
       output += self.generateOutput(tree['children'][key])
       self.depth = self.depth - 1
       output += self.getIndent() + self.options['closingBracket'] + '\n' + ('$n' if self.depth == 0 else '')
-    print(output)
-    # output = output.replace(/^\s*$[\n\r]{1,}/gm, '').replace(//g, '\n')  
-    output = re.sub('^\s*$[\n\r]{1,}', '', output)
+    output = re.sub('\s*$[\n\r]{1,}', '', output)
     output = re.sub('\$n', '\n', output)
-    print("=============")
-    print(output)
-    print("=============")
     return output
+
   def getIndent(self):
-    return '  ' * (self.depth + 1)
+    if self.options['indent'] == '\t':
+      return '\t' * (self.depth + 1)
+    else:
+      return ' ' * self.options['indent'] * (self.depth + 1)
 
-
-          
+  def clean(self, text):
+    text = sublime.get_clipboard()
+    text = re.sub("(;|{|})", "", text)
+    return text
