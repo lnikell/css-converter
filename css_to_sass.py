@@ -22,7 +22,7 @@ class CssToSass(sublime_plugin.TextCommand):
 
   def convert(self, text):
       if (";" in text):
-        self.process()
+        sublime.set_clipboard(self.process())
         self.view.run_command('paste_and_indent')
       else:
         self.view.run_command('paste')
@@ -42,15 +42,15 @@ class CssToSass(sublime_plugin.TextCommand):
       if re.search(",", selector):
         path = self.addRule(path, selector)
       else:
-        selector = re.sub("\s*([>\+~])\s*", r' %\1' , selector)   
+        selector = re.sub("\s*([>\+~])\s*", r' &\1' , selector)   
         selector = re.sub("(\w)([:\.])", r'\1 &\2' , selector)  
         selectors = re.split("[\s]+", selector)
         for item in selectors: 
           #fix back special chars
           _sel = re.sub("&(.)", r'& \1 ', item)
-          _sel = re.sub("&(.)", r'&\1', _sel)
+          _sel = re.sub("& ([:\.]) ", r'&\1', _sel)
+
           path = self.addRule(path, _sel)
-      # print(declaration)
       for (_property, value) in re.findall("([^:;]+):([^;]+)", declaration):
         obj = {
           "property": _property.strip(),
@@ -58,7 +58,7 @@ class CssToSass(sublime_plugin.TextCommand):
         }
 
         path['declarations'].append(obj)
-    self.generateOutput(tree)
+    return self.generateOutput(tree)
 
       
  
@@ -78,15 +78,18 @@ class CssToSass(sublime_plugin.TextCommand):
       self.depth = self.depth + 1
       declarations = tree['children'][key]['declarations']
       for index, declaration in enumerate(declarations):
-        print(index)
-        print(declaration)
         output += self.getIndent() + declaration['property'] + self.options['semicolon'] + ' ' + declaration['value'] + self.options['eol'] + '\n'
-      print(tree['children'][key])
       output += self.generateOutput(tree['children'][key])
       self.depth = self.depth - 1
       output += self.getIndent() + self.options['closingBracket'] + '\n' + ('$n' if self.depth == 0 else '')
-      print(output)
     print(output)
+    # output = output.replace(/^\s*$[\n\r]{1,}/gm, '').replace(//g, '\n')  
+    output = re.sub('^\s*$[\n\r]{1,}', '', output)
+    output = re.sub('\$n', '\n', output)
+    print("=============")
+    print(output)
+    print("=============")
+    return output
   def getIndent(self):
     return '  ' * (self.depth + 1)
 
