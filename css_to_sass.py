@@ -3,7 +3,7 @@ import re
 
 class CssToSass(sublime_plugin.TextCommand):
   options = {
-    'indent': '\t',
+    'indent': 2,
     'openingBracket': '',
     'closingBracket': '',
     'semicolon': ':',
