@@ -15,15 +15,20 @@ class CssToSass(sublime_plugin.TextCommand):
   depth = 0
   def run(self, edit):
     if self.view.file_name() and self.view.file_name().endswith(".sass"):
-      self.convert(sublime.get_clipboard())
+      settings= sublime.load_settings('css_to_sass.sublime-settings')
+      self.options['indent'] = settings.get('css_converter_indent')
+      self.options['semicolon'] = settings.get('css_converter_semicolon')
+      self.options['eol'] = settings.get('css_converter_eol')
+      self.convert(sublime.get_clipboard(), edit)
     else:
       self.view.run_command('paste')
 
 
-  def convert(self, text):
+  def convert(self, text, edit):
       if (";" in text):
         sublime.set_clipboard(self.process())
         self.view.run_command('paste_and_indent')
+
       else:
         self.view.run_command('paste')
 
@@ -83,7 +88,7 @@ class CssToSass(sublime_plugin.TextCommand):
       output += self.generateOutput(tree['children'][key])
       self.depth = self.depth - 1
       output += self.getIndent() + self.options['closingBracket'] + '\n' + ('$n' if self.depth == 0 else '')
-    output = re.sub('\s*$[\n\r]{1,}', '', output)
+    output = re.sub(u'(?imu)^\s*\n', u'', output)
     output = re.sub('\$n', '\n', output)
     return output
 
