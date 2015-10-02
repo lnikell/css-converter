@@ -4,8 +4,23 @@
 ![Example usage]
 (https://habrastorage.org/files/1cc/aa6/0bb/1ccaa60bb0924c8b8976b99acf0e5fd9.gif)
 
+You could also copy something like this:
+```css
+{
+  display: block;
+  color: #ffffff;
+}
+```
+And plugin will transform it to:
+```css
+display: block
+color: #ffffff
+```
+
 ### Features
 - plugin works without any gems or npm packages
+- support nested selectors
+- unprefix(comming soon)
 
 ### Installation
 #### via Package Control
