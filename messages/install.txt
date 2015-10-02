@@ -1,3 +1,17 @@
-Thank you for install plugin!
+Thank you for installing the plugin!
 
-Please write issue if you have any ideas for improvement plugin.
+Please write issues on github if you have any ideas for improvement the plugin.
+
+You can easy configure plugin with the next settings:
+
+{
+  "css_converter_indent": 2,
+  "css_converter_semicolon": ":",
+  "css_converter_eol": "",
+}
+
+Default hotkey is "ctrl + v", but you could change it to another:
+
+[
+  { "keys": ["ctrl+v"], "command": "css_to_sass" },
+]
