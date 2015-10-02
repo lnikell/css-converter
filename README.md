@@ -31,4 +31,36 @@ color: #ffffff
 - Type "Install Package"
 - Type "css to sass converter" and hit return.
 
+### Configuration options
+**css_converter_indent**
+
+Number of spaces or tabs.
+Default: 2.
+Possible option "\t".
+
+**css_converter_semicolon**
+
+Default: ':'. If you want to convert css to stylus you need to change this option to ''.
+
+**css_converter_eol**
+End of line symbol. Default ''.
+
+Default settings:
+```json
+{
+  "css_converter_indent": 2,
+  "css_converter_semicolon": ":",
+  "css_converter_eol": "",
+}
+```
+
+### Default key binding
+
+```json
+[
+  { "keys": ["ctrl+v"], "command": "css_to_sass" },
+]
+```
+
+
 
