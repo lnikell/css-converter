@@ -26,7 +26,7 @@ color: #ffffff
 #### via Package Control
 - Open the Command Pallete (ctrl+shift+P or cmd+shift+P);
 - Type "Add repository";
-- Insert "https://github.com/lnikell/css-to-sass-converter.git"
+- Insert "https://github.com/lnikell/css-converter.git"
 - Open the Command Pallete (ctrl+shift+P or cmd+shift+P);
 - Type "Install Package"
 - Type "css to sass converter" and hit return.
