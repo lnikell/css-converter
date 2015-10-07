@@ -14,7 +14,7 @@ class CssToSass(sublime_plugin.TextCommand):
 
   depth = 0
   def run(self, edit):
-    if self.view.file_name() and (self.view.file_name().endswith(".sass") or self.view.file_name().endswith(".styl")):
+    if self.view.match_selector(0, 'source.sass') or self.view.match_selector(0, 'source.stylus'):
       settings= sublime.load_settings('css_to_sass.sublime-settings')
       self.options['indent'] = settings.get('css_converter_indent')
       self.options['semicolon'] = settings.get('css_converter_semicolon')
