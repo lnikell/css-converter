@@ -1,4 +1,4 @@
-# CSS to SASS/Stylus converter for Sublime Text 3
+# CSS to SASS and Stylus converter for Sublime Text 3
 **STOP WASTE YOUR TIME** removing brackets, semicolon and formating any css inserted from your browser to Sublime Text.
 
 ![Example usage]
