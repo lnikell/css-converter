@@ -1,3 +1,3 @@
 [
-  { "keys": ["ctrl+v"], "command": "css_to_sass" },
+  { "keys": ["super+v"], "command": "css_to_sass" },
 ]
