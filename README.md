@@ -59,5 +59,4 @@ Default settings:
 ]
 ```
 
-
-
+and cmd+v for OSX users
