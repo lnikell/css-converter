@@ -21,6 +21,11 @@ class CssToSass(sublime_plugin.TextCommand):
     if filename:
       if filename.endswith('.sass'): type = 'sass'
       elif filename.endswith('.styl'): type = 'stylus'
+    else:
+      if self.view.match_selector(0, 'source.sass'): type = 'sass'
+      elif self.view.match_selector(0, 'source.stylus'): type = 'stylus'
+
+    print(self.view.match_selector(0, 'source.stylus'))
 
     if type is 'sass' or type is 'stylus':
       settings= sublime.load_settings('css_to_sass.sublime-settings')
