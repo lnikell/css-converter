@@ -47,4 +47,4 @@ End of line symbol.
 
 `Ctrl+V` on Windows/Linux
 
-`⌘+V` on OS X
+`Cmd+V` on OS X
