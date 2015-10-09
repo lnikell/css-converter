@@ -6,7 +6,7 @@ class CssToSass(sublime_plugin.TextCommand):
     'indent': 2,
     'openingBracket': '',
     'closingBracket': '',
-    'semicolon': ':',
+    'colon': ':',
     'eol': '',
     'unPrefix': False,
     'keepColons': False,
@@ -14,11 +14,19 @@ class CssToSass(sublime_plugin.TextCommand):
 
   depth = 0
   def run(self, edit):
-    if self.view.file_name() and (self.view.file_name().endswith(".sass") or self.view.file_name().endswith(".styl")):
+    filename = self.view.file_name()
+
+    type = 'unknown'
+
+    if filename:
+      if filename.endswith('.sass'): type = 'sass'
+      elif filename.endswith('.styl'): type = 'stylus'
+
+    if type is 'sass' or type is 'stylus':
       settings= sublime.load_settings('css_to_sass.sublime-settings')
-      self.options['indent'] = settings.get('css_converter_indent')
-      self.options['semicolon'] = settings.get('css_converter_semicolon')
-      self.options['eol'] = settings.get('css_converter_eol')
+      self.options['indent'] = settings.get('indent')
+      self.options['colon'] = ':' if type is 'sass' or settings.get('colon') else ''
+      self.options['eol'] = settings.get('eol')
       self.convert(sublime.get_clipboard(), edit)
     else:
       self.view.run_command('paste')
@@ -34,7 +42,7 @@ class CssToSass(sublime_plugin.TextCommand):
 
   def process(self):
     text = sublime.get_clipboard()
-        
+
     tree = {'children': {}}
     # Remove comments
     text = re.sub("\/\*[\s\S]*?\*\/", "", text)
@@ -47,10 +55,10 @@ class CssToSass(sublime_plugin.TextCommand):
       if re.search(",", selector):
         path = self.addRule(path, selector)
       else:
-        selector = re.sub("\s*([>\+~])\s*", r' &\1' , selector)   
-        selector = re.sub("(\w)([:\.])", r'\1 &\2' , selector)  
+        selector = re.sub("\s*([>\+~])\s*", r' &\1' , selector)
+        selector = re.sub("(\w)([:\.])", r'\1 &\2' , selector)
         selectors = re.split("[\s]+", selector)
-        for item in selectors: 
+        for item in selectors:
           #fix back special chars
           _sel = re.sub("&(.)", r'& \1 ', item)
           _sel = re.sub("& ([:\.]) ", r'&\1', _sel)
@@ -63,14 +71,14 @@ class CssToSass(sublime_plugin.TextCommand):
         }
 
         path['declarations'].append(obj)
-    if len(results) == 0: return self.clean(text) 
+    if len(results) == 0: return self.clean(text)
     return self.generateOutput(tree)
 
-      
- 
+
+
   def addRule(self, path, selector):
     if selector in path['children']:
-      path['children'][selector] = path['children'][selector] 
+      path['children'][selector] = path['children'][selector]
     else:
       path['children'][selector] = { 'children': {}, 'declarations': [] }
     return path['children'][selector]
@@ -84,7 +92,7 @@ class CssToSass(sublime_plugin.TextCommand):
       self.depth = self.depth + 1
       declarations = tree['children'][key]['declarations']
       for index, declaration in enumerate(declarations):
-        output += self.getIndent() + declaration['property'] + self.options['semicolon'] + ' ' + declaration['value'] + self.options['eol'] + '\n'
+        output += self.getIndent() + declaration['property'] + self.options['colon'] + ' ' + declaration['value'] + self.options['eol'] + '\n'
       output += self.generateOutput(tree['children'][key])
       self.depth = self.depth - 1
       output += self.getIndent() + self.options['closingBracket'] + '\n' + ('$n' if self.depth == 0 else '')

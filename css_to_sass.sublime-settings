@@ -1,5 +1,5 @@
 {
-  "css_converter_indent": 2,
-  "css_converter_semicolon": ":",
-  "css_converter_eol": "",
+  "indent": 2,
+  "colon": true,
+  "eol": ""
 }

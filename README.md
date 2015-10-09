@@ -29,25 +29,25 @@ color: #ffffff
 - Type "css to sass converter" and hit return.
 
 ### Configuration options
-**css_converter_indent**
+**indent**
 
 Number of spaces or tabs.
 Default: 2.
 Possible option "\t".
 
-**css_converter_semicolon**
+**colon**
 
-Default: ':'. If you want to convert css to stylus you need to change this option to ''.
+Default: `true`. If you want to convert css to stylus you need to change this option to ''.
 
-**css_converter_eol**
+**eol**
 End of line symbol. Default ''.
 
 Default settings:
 ```json
 {
-  "css_converter_indent": 2,
-  "css_converter_semicolon": ":",
-  "css_converter_eol": "",
+  "indent": 2,
+  "colon": true,
+  "eol": "",
 }
 ```
 
