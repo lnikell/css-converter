@@ -1,5 +1,5 @@
 # CSS to SASS and Stylus converter for Sublime Text 3
-**STOP WASTE YOUR TIME** removing brackets, semicolon and formating any css inserted from your browser to Sublime Text.
+**STOP WASTING YOUR TIME** removing brackets, semicolons and formating any css inserted from your browser to Sublime Text.
 
 ![Example usage]
 (https://habrastorage.org/files/1cc/aa6/0bb/1ccaa60bb0924c8b8976b99acf0e5fd9.gif)
@@ -17,46 +17,34 @@ display: block
 color: #ffffff
 ```
 
-### Features
-- plugin works without any gems or npm packages
-- support nested selectors
-- unprefix(comming soon)
+## Features
+- works without any gems or npm packages
+- supports nested selectors
+- unprefixing (comming soon)
 
-### Installation
-#### via Package Control
+## Installation
+### via Package Control
 - Open the Command Pallete (ctrl+shift+P or cmd+shift+P);
 - Type "Install Package"
 - Type "css to sass converter" and hit return.
 
-### Configuration options
-**indent**
+## Configuration options
 
+### indent
+**Default**: `2`.
 Number of spaces or tabs.
-Default: 2.
-Possible option "\t".
+Possible value: `"\t"`.
 
-**colon**
+### colon
+**Default**: `true`.
+Add semicolon after property name or not. Makes sense only for stylus.
 
-Default: `true`. If you want to convert css to stylus you need to change this option to ''.
+### eol
+**Default** `""`.
+End of line symbol.
 
-**eol**
-End of line symbol. Default ''.
+## Default key bindings
 
-Default settings:
-```json
-{
-  "indent": 2,
-  "colon": true,
-  "eol": "",
-}
-```
+`Ctrl+V` on Windows/Linux
 
-### Default key binding
-
-```json
-[
-  { "keys": ["ctrl+v"], "command": "css_to_sass" },
-]
-```
-
-and cmd+v for OSX users
+`⌘+V` on OS X
