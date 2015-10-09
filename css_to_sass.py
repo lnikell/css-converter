@@ -3,11 +3,9 @@ import re
 
 class CssToSass(sublime_plugin.TextCommand):
   options = {
-    'indent': 2,
     'openingBracket': '',
     'closingBracket': '',
     'colon': ':',
-    'eol': '',
     'unPrefix': False,
     'keepColons': False,
   }
@@ -29,13 +27,27 @@ class CssToSass(sublime_plugin.TextCommand):
 
     if type is 'sass' or type is 'stylus':
       settings= sublime.load_settings('css_to_sass.sublime-settings')
-      self.options['indent'] = settings.get('indent')
+      self.eol = self.detectEol()
+      self.indent = self.detectIndentation()
       self.options['colon'] = ':' if type is 'sass' or settings.get('colon') else ''
-      self.options['eol'] = settings.get('eol')
       self.convert(sublime.get_clipboard(), edit)
     else:
       self.view.run_command('paste')
 
+  def detectIndentation(self):
+    indent = self.view.settings().get('tab_size')
+    tabs = not self.view.settings().get('translate_tabs_to_spaces')
+
+    return '\t' if tabs else indent
+
+  def detectEol(self):
+    eol_style = self.view.line_endings().lower()
+
+    if (eol_style == 'windows'): eol = '\r\n'
+    elif (eol_style == 'cr'): eol = '\r'
+    else: eol = '\n'
+
+    return eol
 
   def convert(self, text, edit):
       if (";" in text):
@@ -97,7 +109,7 @@ class CssToSass(sublime_plugin.TextCommand):
       self.depth = self.depth + 1
       declarations = tree['children'][key]['declarations']
       for index, declaration in enumerate(declarations):
-        output += self.getIndent() + declaration['property'] + self.options['colon'] + ' ' + declaration['value'] + self.options['eol'] + '\n'
+        output += self.getIndent() + declaration['property'] + self.options['colon'] + ' ' + declaration['value'] + self.eol
       output += self.generateOutput(tree['children'][key])
       self.depth = self.depth - 1
       output += self.getIndent() + self.options['closingBracket'] + '\n' + ('$n' if self.depth == 0 else '')
@@ -106,10 +118,10 @@ class CssToSass(sublime_plugin.TextCommand):
     return output
 
   def getIndent(self):
-    if self.options['indent'] == '\t':
+    if self.indent == '\t':
       return '\t' * (self.depth + 1)
     else:
-      return ' ' * self.options['indent'] * (self.depth + 1)
+      return ' ' * self.indent * (self.depth + 1)
 
   def clean(self, text):
     text = sublime.get_clipboard()

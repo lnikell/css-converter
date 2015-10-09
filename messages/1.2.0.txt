@@ -1,0 +1,2 @@
+"indent" and "eol" settings are removed.
+Current view settings are used instead.
