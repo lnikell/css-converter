@@ -1,8 +1,9 @@
 Thank you for installing the plugin!
 
-Please write issues on github if you have any ideas for improvement the plugin.
+Please submit an issue on github if you have any ideas to improve the plugin.
+https://github.com/lnikell/css-converter/issues
 
-You can easy configure plugin with the next settings:
+You can easily configure it with the following settings:
 
 {
   "css_converter_indent": 2,
