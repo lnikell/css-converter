@@ -1,0 +1,23 @@
+PLEASE UPDATE YOUR CONFIGURATION
+
+It looked like that until now:
+
+{
+  "css_converter_indent": 2,
+  "css_converter_semicolon": ":",
+  "css_converter_eol": "",
+}
+
+Now the format looks like this:
+
+{
+  "indent": 2,
+  "colon": true,
+  "eol": ""
+}
+
+Changes:
+  1. There are no prefixes in options.
+  2. semicolon is now colon (it was a typo)
+  3. colon option has a boolean type (it is enabled or not)
+  4. colon option works just for stylus. For sass colon will always be there

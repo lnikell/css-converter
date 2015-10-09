@@ -5,9 +5,9 @@ Please write issues on github if you have any ideas for improvement the plugin.
 You can easy configure plugin with the next settings:
 
 {
-  "css_converter_indent": 2,
-  "css_converter_semicolon": ":",
-  "css_converter_eol": "",
+  "indent": 2,
+  "colon": true,
+  "eol": "",
 }
 
 Default hotkey is "ctrl + v", but you could change it to another:
