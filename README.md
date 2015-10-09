@@ -30,18 +30,9 @@ color: #ffffff
 
 ## Configuration options
 
-### indent
-**Default**: `2`.
-Number of spaces or tabs.
-Possible value: `"\t"`.
-
 ### colon
 **Default**: `true`.
 Add semicolon after property name or not. Makes sense only for stylus.
-
-### eol
-**Default** `""`.
-End of line symbol.
 
 ## Default key bindings
 
