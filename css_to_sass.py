@@ -125,5 +125,8 @@ class CssToSass(sublime_plugin.TextCommand):
 
   def clean(self, text):
     text = sublime.get_clipboard()
-    text = re.sub("(;|{|})", "", text)
+    if self.options['colon'] == ":":
+      text = re.sub("(;|{|})", "", text)
+    else
+      text = re.sub("({|})", "", text)
     return text
