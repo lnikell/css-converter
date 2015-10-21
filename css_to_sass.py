@@ -124,9 +124,9 @@ class CssToSass(sublime_plugin.TextCommand):
       return ' ' * self.indent * (self.depth + 1)
 
   def clean(self, text):
-    text = sublime.get_clipboard()
+    print("asdasdas")
     if self.options['colon'] == ":":
       text = re.sub("(;|{|})", "", text)
-    else
-      text = re.sub("({|})", "", text)
+    else:
+      text = re.sub("(:|;|{|})", "", text)
     return text
