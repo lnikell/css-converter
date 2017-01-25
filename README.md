@@ -1,6 +1,6 @@
 # CSS to SASS and Stylus converter for Sublime Text 3
 
-[![5k](https://cloud.githubusercontent.com/assets/2697570/22281977/9b90fa80-e2fb-11e6-9f87-dab9dac5a2af.png)](https://packagecontrol.io/packages/CSS%20To%20SASS%20And%20Stylus%20Converter)
+[![5k](https://cdn.rawgit.com/lnikell/wiki/master/5k.svg)](https://packagecontrol.io/packages/CSS%20To%20SASS%20And%20Stylus%20Converter)
 
 **STOP WASTING YOUR TIME** removing brackets, semicolons and formating any css inserted from your browser to Sublime Text.
 
